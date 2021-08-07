@@ -1,0 +1,16 @@
+:Namespace P0005
+    ⍝ https://projecteuler.net/problem=5
+
+    ⍝       factors ¨⍳10
+    ⍝ ┌─┬─┬─┬───┬─┬───┬─┬─────┬───┬───┐
+    ⍝ │1│2│3│2 2│5│2 3│7│2 2 2│3 3│2 5│
+    ⍝ └─┴─┴─┴───┴─┴───┴─┴─────┴───┴───┘
+    
+    sol ← {
+     fac←factors¨⍳⍵
+     nums←∪∊fac
+     freq←{⌈/+/¨⍵}¨fac∘=¨nums ⍝ For each number find the highest frequence in each factors 
+     ×/freq/nums
+    }
+
+:EndNamespace
