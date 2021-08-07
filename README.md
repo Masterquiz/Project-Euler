@@ -1,3 +1,8 @@
 # Project Euler
 
-<a href="https://projecteuler.net/archives">Project Euler problems</a> solved with APL
+## Solving Project Euler problems in APL
+
+[Project Euler] is an online platform where you can solve many programming problems.
+This repository hosts a collection of solutions to those problems, written in [APL](https://apl.wiki).
+
+[Project Euler]: https://projecteuler.net
