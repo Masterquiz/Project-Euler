@@ -1,0 +1,7 @@
+:Namespace P0008
+    ⍝ 10001st prime, https://projecteuler.net/problem=7
+    
+    'pco' ⎕CY 'dfns'
+    sol ← pco 10001
+    
+:EndNamespace
