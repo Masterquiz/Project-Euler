@@ -1,9 +1,8 @@
 :Namespace p0010
     ⍝ Summation of primes, https://projecteuler.net/problem=10
     
-    ⎕PP←17
     'pco' ⎕CY 'dfns'
     
-    sol ← +/{⍵/⍳⍴⍵} 1 pco ⍳2E6
+    sol ← +/⍸10 pco 1 2E6 ⍝ Solution from https://github.com/rak1507
     
 :EndNamespace
