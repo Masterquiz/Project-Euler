@@ -1,0 +1,7 @@
+:Namespace P0001
+    ⍝ LeetCode problem #1                                      
+    ⍝ Multiples of 3 or 5, https://projecteuler.net/problem=1
+    
+    sol ← {+/⍸∨⌿0=3 5∘.|⍳⍵-1}
+
+:EndNamespace
