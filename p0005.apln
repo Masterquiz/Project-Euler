@@ -12,5 +12,7 @@
      freq←{⌈/+/¨⍵}¨fac∘=¨nums ⍝ For each number find the highest frequence in each factors 
      ×/freq/nums
     }
+    
+    sol2←{{×/(*/⊃∘⌽)¨⍵⊆⍨⊃¨⍵}∪{⍵[⍋⍵]}⊃,/⊆¨,⌿¨2 pco¨1↓⍳⍵} ⍝ Using pco's frequency table. Slower
 
 :EndNamespace
