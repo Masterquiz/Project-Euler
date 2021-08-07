@@ -1,0 +1,11 @@
+:Namespace P0004
+    
+    limit←(⊃,⊃∘⌽) ⍝ Evidence first and last elements 
+    limit 0+⍳9     ⍝ 1-digit numbers 
+    limit 9+⍳90    ⍝ 2-digit numbers
+    limit 99+⍳900  ⍝ 3-digit numbers
+    
+    sol ← {{⌈/⍵/⍨(⌽≡⊢)¨⍕¨⍵},∘.×⍨⍵}
+    sol 99+⍳900
+
+:EndNamespace
