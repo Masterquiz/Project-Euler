@@ -1,5 +1,6 @@
 :Namespace solutions
-
+    
+    ⍝ When the input is a matrix, open the editor with )ED -mat and save
     'factors' 'pco' ⎕CY 'dfns' ⍝ Import pco, factors
     (⎕IO ⎕ML ⎕PP)←1 1 12
 
@@ -45,12 +46,17 @@
     
     ⍝ Largest product in a grid
     ⍝ mat←↑' '(⍎¨≠⊆⊢)¨↓mat 
-    ⍝ Rows and Columns
     p0011 ← {
         rows←,/mat ⋄ columns←,⌿mat
         dyagonals←{⍵/⍨4≤≢¨⍵}{⊃,/(⌽vec)(↑,⍥⊂↓)¨,⌿⍵⌽⍨¯1+vec←⍳≢⍵}mat   
         anti_dyagonals←{⍵/⍨4≤≢¨⍵}{⊃,/vec(↑,⍥⊂↓)¨,⌿⍵⌽⍨¯1+vec←⌽⍳≢⍵}mat
         ⌈/∊4×/¨rows,columns,dyagonals,anti_dyagonals
         }
+    
+    ⍝ Highly divisible triangular number
+    p0012 ← {} ⍝ Haven't solved yet
+    
+    ⍝ Large sum
+    p0013 ← {+/⍎¨↓⍵} ⍝ p0012 mat
 
 :EndNamespace
