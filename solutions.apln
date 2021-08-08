@@ -54,7 +54,8 @@
     }
     
     ⍝ Highly divisible triangular number
-    p0012 ← {} ⍝ Haven't solved yet
+    p0012   ← {{⍵/⍨500≤×/1+↑⊢⌿¨2 pco¨⍵}2÷⍨×⌿0 1∘.+⍵} ⍝ p0012 ⍳12400
+    p0012_2 ← {{⍵/⍨500≤{×/1+⊢⌿2 pco ⍵}¨⍵}+/∘⍳¨⍵}
     
     ⍝ Large sum
     p0013 ← {+/⍎¨↓⍵} ⍝ p0012 mat
@@ -66,8 +67,6 @@
     p0015 ← {×/(⍳+/⍵)÷∊⍳¨⍵} ⍝ p0015 20 20
     
     ⍝ Power digit sum [Solution in Python]
-    ⍝ import functools
-    ⍝ print(functools.reduce(lambda a, b: a+b, [int(d) for d in str(2**1000)]))
     
     ⍝ Number letter counts
     ∇ res←p0017
@@ -91,6 +90,6 @@
       res←sum_1_99+sum_100_999+sum_1000
     ∇
     
-    
+    ⍝ Factorial digit sum [Solution in Python]
     
 :EndNamespace
