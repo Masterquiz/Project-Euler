@@ -1,6 +1,0 @@
-:Namespace p0009
-    ⍝ Special Pythagorean triplet, https://projecteuler.net/problem=9
-    
-    sol ← {×/⊃⍵/⍨1000=+/¨⍵},{⍵,0.5*⍨+/⍵*2}¨⍳400 400 ⍝ Bruteforce
-    
-:EndNamespace
