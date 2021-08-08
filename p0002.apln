@@ -1,8 +1,0 @@
-:Namespace P0002                              
-    ⍝ Even Fibonacci numbers, https://projecteuler.net/problem=2
-    
-    fib ← {1∧+∘÷\1⍴⍨⍵} ⍝ First ⍵ fibonacci numbers
-    sol ← {+/(0 1 0⍴⍨⍵)/fib ⍵} ⍝ Use a Fibonacci sequence pattern
-    sol 32  
-
-:EndNamespace
