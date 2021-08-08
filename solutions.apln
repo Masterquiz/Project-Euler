@@ -1,6 +1,7 @@
 :Namespace solutions
 
-    'factors' 'pco' ⎕CY 'dfns' ⍝ Import factors
+    'factors' 'pco' ⎕CY 'dfns' ⍝ Import pco, factors
+    (⎕IO ⎕ML ⎕PP)←1 1 12
 
     ⍝ Multiples of 3 or 5
     p0001 ← {+/⍸∨⌿0=3 5∘.|⍳⍵-1}
