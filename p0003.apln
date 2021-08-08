@@ -1,7 +1,0 @@
-:Namespace P0003
-    ⍝ Largest prime factor, https://projecteuler.net/problem=3
-    
-    'factors' ⎕CY 'dfns' ⍝ Import factors
-    sol ← (⊃∘⌽factors)
-
-:EndNamespace
