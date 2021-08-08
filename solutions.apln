@@ -58,5 +58,8 @@
     
     ⍝ Large sum
     p0013 ← {+/⍎¨↓⍵} ⍝ p0012 mat
+    
+    ⍝ Longest Collatz sequence
+    p0014 ← {⍵/⍨⍵=⌈/⍵}{≢{⍵,{2|⍵:1+3×⍵ ⋄ 0.5×⍵}⊃⌽⍵}⍣{1=⊃⌽⍵}⊢⍵}¨⍳1e6
 
 :EndNamespace
