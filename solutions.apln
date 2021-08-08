@@ -1,0 +1,55 @@
+:Namespace solutions
+
+    'factors' 'pco' ⎕CY 'dfns' ⍝ Import factors
+
+    ⍝ Multiples of 3 or 5
+    p0001 ← {+/⍸∨⌿0=3 5∘.|⍳⍵-1}
+    
+    ⍝ Even Fibonacci numbers
+    fib ← {1∧+∘÷\1⍴⍨⍵} ⍝ First ⍵ fibonacci numbers
+    p0002 ← {+/(0 1 0⍴⍨⍵)/fib ⍵} ⍝ Use a Fibonacci sequence pattern. p0002 32
+    
+    ⍝ Largest prime factor
+    p0003 ← (⊃∘⌽factors)
+    
+    ⍝ Largest palindrome product
+    limit←(⊃,⊃∘⌽) ⍝ Evidence first and last elements 
+    ⍝ limit 0+⍳9     ⍝ 1-digit numbers 
+    ⍝ limit 9+⍳90    ⍝ 2-digit numbers
+    ⍝ limit 99+⍳900  ⍝ 3-digit numbers 
+    p0004 ← {{⌈/⍵/⍨(⌽≡⊢)¨⍕¨⍵},∘.×⍨⍵} ⍝ p0004 99+⍳900
+    
+    ⍝ Smallest multiple
+    p0005 ← {
+     fac←factors¨⍳⍵
+     nums←∪∊fac
+     freq←{⌈/+/¨⍵}¨fac∘=¨nums ⍝ For each number find the highest frequence in each factors 
+     ×/freq/nums
+    }
+    
+    ⍝ Sum square difference
+    p0006 ← {(×⍨+/⍵)-+/×⍨⍵}
+    
+    ⍝ 10001st prime
+    p0007 ← pco 10001
+    
+    ⍝ Largest product in a series
+    p0008 ← {⌈/13×/⍎' '(,,⍤0)⍵} ⍝ Using the character, cause 10⊥⍣¯1⊢ would give DOMAIN ERROR
+    
+    ⍝ Special Pythagorean triplet
+    p0009 ← {×/⊃⍵/⍨1000=+/¨⍵},{⍵,0.5*⍨+/⍵*2}¨⍳400 400 ⍝ Bruteforce
+    
+    ⍝ Summation of primes
+    p0010 ← +/⍸10 pco 1 2E6 ⍝ Solution from https://github.com/rak1507
+    
+    ⍝ Largest product in a grid
+    ⍝ mat←↑' '(⍎¨≠⊆⊢)¨↓mat 
+    ⍝ Rows and Columns
+    p0011 ← {
+        rows←,/mat ⋄ columns←,⌿mat
+        dyagonals←{⍵/⍨4≤≢¨⍵}{⊃,/(⌽vec)(↑,⍥⊂↓)¨,⌿⍵⌽⍨¯1+vec←⍳≢⍵}mat   
+        anti_dyagonals←{⍵/⍨4≤≢¨⍵}{⊃,/vec(↑,⍥⊂↓)¨,⌿⍵⌽⍨¯1+vec←⌽⍳≢⍵}mat
+        ⌈/∊4×/¨rows,columns,dyagonals,anti_dyagonals
+        }
+
+:EndNamespace
