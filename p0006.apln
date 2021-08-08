@@ -1,6 +1,0 @@
-:Namespace P0006
-    ⍝ Sum square difference, https://projecteuler.net/problem=6
-
-    sol ← {(×⍨+/⍵)-+/×⍨⍵}
-    
-:EndNamespace
