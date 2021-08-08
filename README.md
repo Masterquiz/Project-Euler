@@ -7,7 +7,13 @@ This repository hosts a collection of solutions to those problems, written in [A
 
 Available solutions:
 
-    ⍳11
+     1  2  3  4  5  6  7  8  9  10
+    11 12 13 14 15    17 18
+
+
+Python solutions:
+    
+                   16           20
 
 Settings:
     
