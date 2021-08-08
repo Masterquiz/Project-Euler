@@ -15,7 +15,7 @@
     p0003 ← (⊃∘⌽factors)
     
     ⍝ Largest palindrome product
-    limit←(⊃,⊃∘⌽) ⍝ Evidence first and last elements 
+    limit ← (⊃,⊃∘⌽) ⍝ Evidence first and last elements 
     ⍝ limit 0+⍳9     ⍝ 1-digit numbers 
     ⍝ limit 9+⍳90    ⍝ 2-digit numbers
     ⍝ limit 99+⍳900  ⍝ 3-digit numbers 
@@ -33,16 +33,16 @@
     p0006 ← {(×⍨+/⍵)-+/×⍨⍵}
     
     ⍝ 10001st prime
-    p0007 ← pco 10001
+    p0007 ← pco ⍝ p0007 10001
     
     ⍝ Largest product in a series
     p0008 ← {⌈/13×/⍎' '(,,⍤0)⍵} ⍝ Using the character, cause 10⊥⍣¯1⊢ would give DOMAIN ERROR
     
     ⍝ Special Pythagorean triplet
-    p0009 ← {×/⊃⍵/⍨1000=+/¨⍵},{⍵,0.5*⍨+/⍵*2}¨⍳400 400 ⍝ Bruteforce
+    p0009 ← {×/⊃⍵/⍨1000=+/¨⍵},{⍵,0.5*⍨+/⍵*2} ⍝ Bruteforce: p0009 ¨⍳400 400
     
     ⍝ Summation of primes
-    p0010 ← +/⍸10 pco 1 2E6 ⍝ Solution from https://github.com/rak1507
+    p0010 ← {+/⍸10 pco 1 ⍵} ⍝ p0010 2E6 Solution by https://github.com/rak1507
     
     ⍝ Largest product in a grid
     ⍝ mat←↑' '(⍎¨≠⊆⊢)¨↓mat 
@@ -51,7 +51,7 @@
         dyagonals←{⍵/⍨4≤≢¨⍵}{⊃,/(⌽vec)(↑,⍥⊂↓)¨,⌿⍵⌽⍨¯1+vec←⍳≢⍵}mat   
         anti_dyagonals←{⍵/⍨4≤≢¨⍵}{⊃,/vec(↑,⍥⊂↓)¨,⌿⍵⌽⍨¯1+vec←⌽⍳≢⍵}mat
         ⌈/∊4×/¨rows,columns,dyagonals,anti_dyagonals
-        }
+    }
     
     ⍝ Highly divisible triangular number
     p0012 ← {} ⍝ Haven't solved yet
