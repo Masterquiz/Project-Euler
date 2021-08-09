@@ -92,4 +92,7 @@
     
     ⍝ Factorial digit sum [Solution in Python]
     
+    ⍝ Amicable numbers
+    p0021 ← {+/∊{⍵/⍨0,2≡/⍵}{⍵[⍋⍵]}{⍵[⍋⍵]}¨{⍵,¨⍳≢⍵}(+/∘∪⊢∨¯1↓⍳)¨⍳⍵} ⍝ p0021 10000
+    
 :EndNamespace
