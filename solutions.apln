@@ -95,4 +95,10 @@
     ⍝ Amicable numbers
     p0021 ← {+/∊{⍵/⍨0,2≡/⍵}{⍵[⍋⍵]}{⍵[⍋⍵]}¨{⍵,¨⍳≢⍵}(+/∘∪⊢∨¯1↓⍳)¨⍳⍵} ⍝ p0021 10000
     
+    p0024 ← {' '~⍨⍕¯1+1e6⌷pmat ⍵} ⍝ p0024 10 ⍝ 10⊥ Potrebbe cancellare lo 0 iniziale
+    
+    ⍝ 1000-digit Fibonacci number
+    ⍝ Using this function https://dfns.dyalog.com/n_fibonacci.htm#:~:text=2.41%203%203.9%205-,Veli-Matti,-Jantunen%20suggests%20this
+    p0025 ← {⊃⍵/⍨1000≤≢∘fib¨⍵} ⍝ Bruteforce: p0025 4750+⍳50
+    
 :EndNamespace
