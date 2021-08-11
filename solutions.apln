@@ -4,7 +4,7 @@
     
     ⍝ When the input is a matrix, open the editor with )ED -mat and save
     (⎕IO ⎕ML ⎕PP)←1 1 12
-    'factors' 'pco' ⎕CY 'dfns' ⍝ Import pco, factors
+    'factors' 'pco' 'xtimes' ⎕CY 'dfns' ⍝ Import pco, factors
     
     fib←{
         ⍝ https://dfns.dyalog.com/n_fibonacci.htm
@@ -31,47 +31,53 @@
         f0004 ← {{⌈/⍵/⍨(⌽≡⊢)¨⍕¨⍵},∘.×⍨⍵} ⍝ p0004 99+⍳900
         t0004 ← ⌈/∘ {⍵/⍨(⌽≡⊢)¨⍕¨⍵}∘ ,(∘.×⍨⊢) ⍝ To tacify {⍵/⍨(⌽≡⊢)¨⍕¨⍵}
         
-        f0005←{
+        f0005 ← {{×/(∪∊⍵)*{⌈/+/¨⍵}¨⍵∘=¨∪∊⍵}factors¨⍳⍵}
+        t0005 ← ×/∘(∪∘∊*(⌈/∘(+/¨)⍤1⊢∘∪∘∊∘.=⊢))⊢factors¨⍳
+        d0005←{
             fac ← factors¨⍳⍵
             nums ← ∪∊fac
             freq ← {⌈/+/¨⍵}¨fac∘=¨nums ⍝ For each number find the highest frequence in each factors
             ×/nums*freq
         } ⍝ f0005 20
-        t0005 ← ×/∘(∪∘∊*(⌈/∘(+/¨)⍤1⊢∘∪∘∊∘.=⊢))⊢factors¨⍳
-
-        p0006 ← {(×⍨+/⍵)-+/×⍨⍵}
         
-        p0007 ← pco ⍝ p0007 10001
+        f0006 ← {(×⍨+/⍳⍵)-+/×⍨⍳⍵} ⍝ f0006 100
+        t0006 ← ((×⍨+/)-+/⍤×⍨)⍳
         
-        p0008 ← {⌈/13×/⍎' '(,,⍤0)⍵} ⍝ Using the character, cause 10⊥⍣¯1⊢ would give DOMAIN ERROR
+        f0007 ← pco ⍝ p0007 10001
         
-        p0009 ← {×/⊃⍵/⍨1000=+/¨⍵},{⍵,0.5*⍨+/⍵*2} ⍝ Bruteforce: p0009 ¨⍳400 400
+        ⍝ Using the character, cause 10⊥⍣¯1⊢ would give DOMAIN ERROR
+        f0008 ← {⌈/13×/⍎∊' ',¨⍵} ⍝ f0008 ∊mat
+        t0008 ← ⌈/13×/∘⍎∘∊' '∘,¨
+        
+        f0009 ← {×/⊃⍵/⍨1000=+/¨⍵} ,{⍵,0.5*⍨+/⍵*2} ¨{(⊂0 0)~⍨,⍵×∘.<⍨⍳⊃⍴⍵} ⍝ f0009 ⍳400 400
         
     :EndSection ⍝ First
     
     :Section Second
-        p0010 ← {+/⍸10 pco 1 ⍵} ⍝ p0010 2E6 Solution by https://github.com/rak1507
+        f0010 ← {+/⍸10 pco 1 ⍵} ⍝ f0010 2E6 Solution by https://github.com/rak1507
+        t0010 ← +/∘⍸10 pco 1,⊢
         
-        ⍝ mat←↑' '(⍎¨≠⊆⊢)¨↓mat 
-        p0011←{
+        d0011←{
             rows←,/mat ⋄ columns←,⌿mat
-            dyagonals←{⍵/⍨4≤≢¨⍵}{⊃,/(⌽vec)(↑,⍥⊂↓)¨,⌿⍵⌽⍨¯1+vec←⍳≢⍵}mat
-            anti_dyagonals←{⍵/⍨4≤≢¨⍵}{⊃,/vec(↑,⍥⊂↓)¨,⌿⍵⌽⍨¯1+vec←⌽⍳≢⍵}mat
-            ⌈/∊4×/¨rows,columns,dyagonals,anti_dyagonals
-        }
+            dyagonals←{⊃,/(⌽vec)(↑,⍥⊂↓)¨,⌿⍵⌽⍨¯1+vec←⍳≢⍵}mat
+            anti_dyagonals←{⊃,/vec(↑,⍥⊂↓)¨,⌿⍵⌽⍨¯1+vec←⌽⍳≢⍵}mat
+            ⌈/∊4×/¨rows,columns,{⍵/⍨4≤≢¨⍵}dyagonals,anti_dyagonals
+        } ⍝ d0011 mat←↑' '(⍎¨≠⊆⊢)¨↓mat
         
-        p0012   ← {{⍵/⍨500≤×/1+↑⊢⌿¨2 pco¨⍵}2÷⍨×⌿0 1∘.+⍵} ⍝ p0012 ⍳12400
-        p0012_2 ← {{⍵/⍨500≤{×/1+⊢⌿2 pco ⍵}¨⍵}+/∘⍳¨⍵}
+        f0012   ← {{⍵/⍨500≤×/1+↑⊢⌿¨2 pco¨⍵}2÷⍨×⌿0 1∘.+⍵} ⍝ p0012 ⍳12400
+        f0012_2 ← {{⍵/⍨500≤{×/1+⊢⌿2 pco ⍵}¨⍵}+/∘⍳¨⍵}
         
-        p0013 ← {+/⍎¨↓⍵} ⍝ p0012 mat
+        f0013 ← {+/⍎¨↓⍵} ⍝ (10↑~∘'.')⍕ f0013 mat
+        t0013 ← +/∘(⍎¨↓)
         
-        p0014 ← {{⍸⍵=⌈/⍵}{≢¯1↓{⍵,{2|⍵:1+3×⍵ ⋄ 0.5×⍵}⊃⌽⍵}⍣{1=⊃⌽⍵}⊢⍵}¨⍵} ⍝ p0014 ⍳1e6. [Slow]
+        f0014 ← {{⍸⍵=⌈/⍵}{≢r⊣{2|⍵:1+3×⍵ ⋄ ⍵÷2}⍣{1=r,←⍵}⍵⊣r←⍬}¨⍵} ⍝ f0014 ⍳1e6.
         
-        p0015 ← {×/(⍳+/⍵)÷∊⍳¨⍵} ⍝ p0015 20 20
+        p0015 ← {×/(⍳+/⍵)÷∊⍳¨⍵} ⍝ f0015 20 20
+        t0015 ← ×/(⍳+/)÷(∊⍳¨)
         
-        ⍝ Power digit sum [Solution in Python]
+        f0016 ← {+/⊃xtimes/10⊥⍣¯1¨(⍵÷4)⍴2*4} ⍝ f0016 1000 ⍝ 4 cause 1000÷4 and 2*4 are integers
         
-        ∇ res←p0017
+        ∇ res ← s0017 ;set1;set2;set3;sum_1000;sum_100_999;sum_10_19;sum_1_9;sum_1_99;sum_20_99
           set1←'one two three four five six seven eight nine'
           set2←'ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen'
           set3←'twenty thirty forty fifty sixty seventy eighty ninety'
@@ -89,17 +95,23 @@
           ⍝ For every nine hundreds repeats sum_1_99
           sum_100_999←(100×sum_1_9)+(9×⍴'hundred')+(891×⍴'hundred and'~' ')+9×sum_1_99
           sum_1000←⍴'one thousand'~' '
-          res←sum_1_99+sum_100_999+sum_1000
-        ∇
+          res ← sum_1_99+sum_100_999+sum_1000
+        ∇ ⍝ s0017
+
+        f0018 ← {}
+
+        f0019 ← {⍴⍎{3 2⌷⎕SE.UCMD ⍵} ¨(⊂'Calendar '),∘⍕¨,(⍳12)∘.,⍵} ⍝ f0019 1900+⍳100
         
-        ⍝ Factorial digit sum [Solution in Python]
     :EndSection ⍝ Second
     
     :Section Third
-        p0021 ← {+/∊{⍵/⍨0,2≡/⍵}{⍵[⍋⍵]}{⍵[⍋⍵]}¨{⍵,¨⍳≢⍵}(+/∘∪⊢∨¯1↓⍳)¨⍳⍵} ⍝ p0021 10000
+        f0020 ← +/∘⊃(xtimes/10⊥⍣¯1¨⍳) ⍝ f0020 100
         
-        p0024 ← {' '~⍨⍕¯1+1e6⌷pmat ⍵} ⍝ p0024 10 ⍝ 10⊥ Potrebbe cancellare lo 0 iniziale
+        f0021 ← {+/∊{⍵/⍨0,2≡/⍵}{⍵[⍋⍵]}{⍵[⍋⍵]}¨{⍵,¨⍳≢⍵}(+/∘∪⊢∨¯1↓⍳)¨⍳⍵} ⍝ p0021 10000
         
-        p0025 ← {⊃⍵/⍨1000≤≢∘fib¨⍵} ⍝ Bruteforce: p0025 4750+⍳50
+        f0024 ← {' '~⍨⍕¯1+1e6⌷pmat ⍵} ⍝ p0024 10 ⍝ 10⊥ might delete first zero
+        ⍝ t0024 ← ' '~⍨⍕∘(¯1+1e6⌷pmat)
+
+        f0025 ← {⊃⍵/⍨1000≤≢∘fib¨⍵} ⍝ f0025 4750+⍳50
     :EndSection ⍝ Third
 :EndNamespace
