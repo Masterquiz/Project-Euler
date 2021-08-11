@@ -11,11 +11,5 @@ Available solutions:
     11 12 13 14 15 16 17        20
     21       24 25
 
-Settings:
-    
-    (⎕IO ⎕ML ⎕PP) ← 1 1 12
-    
-    'pco' 'factors' ⎕CY 'dfns' ⍝  Dyalog's functions: https://dfns.dyalog.com/n_contents.htm
-
 [Project Euler]: https://projecteuler.net
 [APL]: https://apl.wiki
