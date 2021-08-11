@@ -1,104 +1,105 @@
 :Namespace solutions
     
+    ⍝ Every section cover ten problems
+    
     ⍝ When the input is a matrix, open the editor with )ED -mat and save
-    'factors' 'pco' ⎕CY 'dfns' ⍝ Import pco, factors
     (⎕IO ⎕ML ⎕PP)←1 1 12
-
-    ⍝ Multiples of 3 or 5
-    p0001 ← {+/⍸∨⌿0=3 5∘.|⍳⍵-1}
+    'factors' 'pco' ⎕CY 'dfns' ⍝ Import pco, factors
     
-    ⍝ Even Fibonacci numbers
-    fib ← {1∧+∘÷\1⍴⍨⍵} ⍝ First ⍵ fibonacci numbers
-    p0002 ← {+/(0 1 0⍴⍨⍵)/fib ⍵} ⍝ Use a Fibonacci sequence pattern. p0002 32
-    
-    ⍝ Largest prime factor
-    p0003 ← (⊃∘⌽factors)
-    
-    ⍝ Largest palindrome product
-    limit ← (⊃,⊃∘⌽) ⍝ Evidence first and last elements 
-    ⍝ limit 0+⍳9     ⍝ 1-digit numbers 
-    ⍝ limit 9+⍳90    ⍝ 2-digit numbers
-    ⍝ limit 99+⍳900  ⍝ 3-digit numbers 
-    p0004 ← {{⌈/⍵/⍨(⌽≡⊢)¨⍕¨⍵},∘.×⍨⍵} ⍝ p0004 99+⍳900
-    
-    ⍝ Smallest multiple
-    p0005 ← {
-     fac←factors¨⍳⍵
-     nums←∪∊fac
-     freq←{⌈/+/¨⍵}¨fac∘=¨nums ⍝ For each number find the highest frequence in each factors 
-     ×/freq/nums
+    fib←{
+        ⍝ https://dfns.dyalog.com/n_fibonacci.htm
+        ⍝ p0025
+        ⎕ML←3
+        ⍵≤2:1
+        {(+/∧\⍵='0')↓⍵
+        },'ZI9'⎕FMT(⍵-2){
+            ⍺>0:(⍺-1)∇(↑⌽⍵)({
+                    ∧/⍵<1000000000:⍵ ⋄ (1000000000|⍵)+1⌽⍵≥1000000000
+                }(↑⍵)+↑⌽⍵) ⋄ ↑⌽⍵
+        }2⍴⊂(-⌈⍵÷40)↑1
     }
     
-    ⍝ Sum square difference
-    p0006 ← {(×⍨+/⍵)-+/×⍨⍵}
-    
-    ⍝ 10001st prime
-    p0007 ← pco ⍝ p0007 10001
-    
-    ⍝ Largest product in a series
-    p0008 ← {⌈/13×/⍎' '(,,⍤0)⍵} ⍝ Using the character, cause 10⊥⍣¯1⊢ would give DOMAIN ERROR
-    
-    ⍝ Special Pythagorean triplet
-    p0009 ← {×/⊃⍵/⍨1000=+/¨⍵},{⍵,0.5*⍨+/⍵*2} ⍝ Bruteforce: p0009 ¨⍳400 400
-    
-    ⍝ Summation of primes
-    p0010 ← {+/⍸10 pco 1 ⍵} ⍝ p0010 2E6 Solution by https://github.com/rak1507
-    
-    ⍝ Largest product in a grid
-    ⍝ mat←↑' '(⍎¨≠⊆⊢)¨↓mat 
-    p0011 ← {
-        rows←,/mat ⋄ columns←,⌿mat
-        dyagonals←{⍵/⍨4≤≢¨⍵}{⊃,/(⌽vec)(↑,⍥⊂↓)¨,⌿⍵⌽⍨¯1+vec←⍳≢⍵}mat   
-        anti_dyagonals←{⍵/⍨4≤≢¨⍵}{⊃,/vec(↑,⍥⊂↓)¨,⌿⍵⌽⍨¯1+vec←⌽⍳≢⍵}mat
-        ⌈/∊4×/¨rows,columns,dyagonals,anti_dyagonals
-    }
-    
-    ⍝ Highly divisible triangular number
-    p0012   ← {{⍵/⍨500≤×/1+↑⊢⌿¨2 pco¨⍵}2÷⍨×⌿0 1∘.+⍵} ⍝ p0012 ⍳12400
-    p0012_2 ← {{⍵/⍨500≤{×/1+⊢⌿2 pco ⍵}¨⍵}+/∘⍳¨⍵}
-    
-    ⍝ Large sum
-    p0013 ← {+/⍎¨↓⍵} ⍝ p0012 mat
-    
-    ⍝ Longest Collatz sequence
-    p0014 ← {{⍸⍵=⌈/⍵}{≢¯1↓{⍵,{2|⍵:1+3×⍵ ⋄ 0.5×⍵}⊃⌽⍵}⍣{1=⊃⌽⍵}⊢⍵}¨⍵} ⍝ p0014 ⍳1e6. [Slow]
+    :Section First
+        f0001 ← {+/⍸∨⌿0=3 5∘.|⍳⍵-1} ⍝ f0001 1000
+        t0001 ← +/⍸∘(∨⌿0=3 5∘.|(⍳-∘1))
+        
+        f0002 ← {+/(⍵⍴0 1 0)/{1∧+∘÷\⍵⍴1}⍵} ⍝ f0002 32
+        t0002 ← (1∧(+∘÷\1⍴⍨⊢)) (/⍨) (0 1 0⍴⍨⊢)
+        
+        t0003 ← ⊃∘⌽factors ⍝ t0003 600851475143
+        
+        f0004 ← {{⌈/⍵/⍨(⌽≡⊢)¨⍕¨⍵},∘.×⍨⍵} ⍝ p0004 99+⍳900
+        t0004 ← ⌈/∘ {⍵/⍨(⌽≡⊢)¨⍕¨⍵}∘ ,(∘.×⍨⊢) ⍝ To tacify {⍵/⍨(⌽≡⊢)¨⍕¨⍵}
+        
+        f0005←{
+            fac ← factors¨⍳⍵
+            nums ← ∪∊fac
+            freq ← {⌈/+/¨⍵}¨fac∘=¨nums ⍝ For each number find the highest frequence in each factors
+            ×/nums*freq
+        } ⍝ f0005 20
+        t0005 ← ×/∘(∪∘∊*(⌈/∘(+/¨)⍤1⊢∘∪∘∊∘.=⊢))⊢factors¨⍳
 
-    ⍝ Lattice paths
-    p0015 ← {×/(⍳+/⍵)÷∊⍳¨⍵} ⍝ p0015 20 20
+        p0006 ← {(×⍨+/⍵)-+/×⍨⍵}
+        
+        p0007 ← pco ⍝ p0007 10001
+        
+        p0008 ← {⌈/13×/⍎' '(,,⍤0)⍵} ⍝ Using the character, cause 10⊥⍣¯1⊢ would give DOMAIN ERROR
+        
+        p0009 ← {×/⊃⍵/⍨1000=+/¨⍵},{⍵,0.5*⍨+/⍵*2} ⍝ Bruteforce: p0009 ¨⍳400 400
+        
+    :EndSection ⍝ First
     
-    ⍝ Power digit sum [Solution in Python]
+    :Section Second
+        p0010 ← {+/⍸10 pco 1 ⍵} ⍝ p0010 2E6 Solution by https://github.com/rak1507
+        
+        ⍝ mat←↑' '(⍎¨≠⊆⊢)¨↓mat 
+        p0011←{
+            rows←,/mat ⋄ columns←,⌿mat
+            dyagonals←{⍵/⍨4≤≢¨⍵}{⊃,/(⌽vec)(↑,⍥⊂↓)¨,⌿⍵⌽⍨¯1+vec←⍳≢⍵}mat
+            anti_dyagonals←{⍵/⍨4≤≢¨⍵}{⊃,/vec(↑,⍥⊂↓)¨,⌿⍵⌽⍨¯1+vec←⌽⍳≢⍵}mat
+            ⌈/∊4×/¨rows,columns,dyagonals,anti_dyagonals
+        }
+        
+        p0012   ← {{⍵/⍨500≤×/1+↑⊢⌿¨2 pco¨⍵}2÷⍨×⌿0 1∘.+⍵} ⍝ p0012 ⍳12400
+        p0012_2 ← {{⍵/⍨500≤{×/1+⊢⌿2 pco ⍵}¨⍵}+/∘⍳¨⍵}
+        
+        p0013 ← {+/⍎¨↓⍵} ⍝ p0012 mat
+        
+        p0014 ← {{⍸⍵=⌈/⍵}{≢¯1↓{⍵,{2|⍵:1+3×⍵ ⋄ 0.5×⍵}⊃⌽⍵}⍣{1=⊃⌽⍵}⊢⍵}¨⍵} ⍝ p0014 ⍳1e6. [Slow]
+        
+        p0015 ← {×/(⍳+/⍵)÷∊⍳¨⍵} ⍝ p0015 20 20
+        
+        ⍝ Power digit sum [Solution in Python]
+        
+        ∇ res←p0017
+          set1←'one two three four five six seven eight nine'
+          set2←'ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen'
+          set3←'twenty thirty forty fifty sixty seventy eighty ninety'
+          sum_1_9←⍴set1~' '
+          sum_10_19←⍴set2~' '
+          ⍝ for 20s, 30s, [...] , 80s, 90s: 'twenty twenty-one twenty-two [...] twenty-eight twenty-nine' →
+          ⍝ → 10 times 'twenty' + 1 time 'one two three [...] eight nine'
+          sum_20_99←(10×⍴set3~' ')+8×sum_1_9
+          sum_1_99←sum_1_9+sum_10_19+sum_20_99
+          ⍝ For 100s, 200s, [...] , 800s, 900s
+          ⍝ ('one hundred' + 99 times 'one hundred and'), ... , ('nine hundred' + 99 times 'nine hundred and') →
+          ⍝ → 1 time 'one two three [...] eight nine'   + 9 times 'hundred' +
+          ⍝ + 99 times 'one two three [...] eight nine' + 891 times 'hundred and'
+          ⍝ → 100 times 'one two three [...] eight nine' + 9 times 'hundred' + 891 times 'hundred and'
+          ⍝ For every nine hundreds repeats sum_1_99
+          sum_100_999←(100×sum_1_9)+(9×⍴'hundred')+(891×⍴'hundred and'~' ')+9×sum_1_99
+          sum_1000←⍴'one thousand'~' '
+          res←sum_1_99+sum_100_999+sum_1000
+        ∇
+        
+        ⍝ Factorial digit sum [Solution in Python]
+    :EndSection ⍝ Second
     
-    ⍝ Number letter counts
-    ∇ res←p0017
-      set1←'one two three four five six seven eight nine'
-      set2←'ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen'
-      set3←'twenty thirty forty fifty sixty seventy eighty ninety'
-      sum_1_9←⍴set1~' '
-      sum_10_19←⍴set2~' '
-      ⍝ for 20s, 30s, [...] , 80s, 90s: 'twenty twenty-one twenty-two [...] twenty-eight twenty-nine' →
-      ⍝ → 10 times 'twenty' + 1 time 'one two three [...] eight nine'
-      sum_20_99←(10×⍴set3~' ')+8×sum_1_9
-      sum_1_99←sum_1_9+sum_10_19+sum_20_99
-      ⍝ For 100s, 200s, [...] , 800s, 900s
-      ⍝ ('one hundred' + 99 times 'one hundred and'), ... , ('nine hundred' + 99 times 'nine hundred and') →
-      ⍝ → 1 time 'one two three [...] eight nine'   + 9 times 'hundred' +
-      ⍝ + 99 times 'one two three [...] eight nine' + 891 times 'hundred and'
-      ⍝ → 100 times 'one two three [...] eight nine' + 9 times 'hundred' + 891 times 'hundred and' 
-      ⍝ For every nine hundreds repeats sum_1_99
-      sum_100_999←(100×sum_1_9)+(9×⍴'hundred')+(891×⍴'hundred and'~' ')+9×sum_1_99
-      sum_1000←⍴'one thousand'~' '
-      res←sum_1_99+sum_100_999+sum_1000
-    ∇
-    
-    ⍝ Factorial digit sum [Solution in Python]
-    
-    ⍝ Amicable numbers
-    p0021 ← {+/∊{⍵/⍨0,2≡/⍵}{⍵[⍋⍵]}{⍵[⍋⍵]}¨{⍵,¨⍳≢⍵}(+/∘∪⊢∨¯1↓⍳)¨⍳⍵} ⍝ p0021 10000
-    
-    p0024 ← {' '~⍨⍕¯1+1e6⌷pmat ⍵} ⍝ p0024 10 ⍝ 10⊥ Potrebbe cancellare lo 0 iniziale
-    
-    ⍝ 1000-digit Fibonacci number
-    ⍝ Using this function https://dfns.dyalog.com/n_fibonacci.htm#:~:text=2.41%203%203.9%205-,Veli-Matti,-Jantunen%20suggests%20this
-    p0025 ← {⊃⍵/⍨1000≤≢∘fib¨⍵} ⍝ Bruteforce: p0025 4750+⍳50
-    
+    :Section Third
+        p0021 ← {+/∊{⍵/⍨0,2≡/⍵}{⍵[⍋⍵]}{⍵[⍋⍵]}¨{⍵,¨⍳≢⍵}(+/∘∪⊢∨¯1↓⍳)¨⍳⍵} ⍝ p0021 10000
+        
+        p0024 ← {' '~⍨⍕¯1+1e6⌷pmat ⍵} ⍝ p0024 10 ⍝ 10⊥ Potrebbe cancellare lo 0 iniziale
+        
+        p0025 ← {⊃⍵/⍨1000≤≢∘fib¨⍵} ⍝ Bruteforce: p0025 4750+⍳50
+    :EndSection ⍝ Third
 :EndNamespace
