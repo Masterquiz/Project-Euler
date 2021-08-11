@@ -98,8 +98,6 @@
           res ← sum_1_99+sum_100_999+sum_1000
         ∇ ⍝ s0017
 
-        f0018 ← {}
-
         f0019 ← {⍴⍎{3 2⌷⎕SE.UCMD ⍵} ¨(⊂'Calendar '),∘⍕¨,(⍳12)∘.,⍵} ⍝ f0019 1900+⍳100
         
     :EndSection ⍝ Second
